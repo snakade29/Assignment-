@@ -7,14 +7,13 @@ This repository contains an automated End-to-End (E2E) test suite for the [Sauce
 The project is organized to ensure modularity, readability, and scalability:
 
 ```
-├── test
-│   ├── locators       # Centralized file for all selectors (Locators)
-│   ├── pageobjects    # Page Classes containing methods and logic (POM)
-│   └── specs          # Test specifications (E2E scenarios)
-├── scripts            # Utility scripts (e.g., custom report generation)
-├── report             # Generated Allure reports (auto-created)
-├── wdio.conf.js       # WebdriverIO configuration file
-└── package.json       # Project dependencies and scripts
+├── locators       # Centralized file for all selectors (Locators)
+├── pageobjects    # Page Classes containing methods and logic (POM)
+├── test           # Test specifications (E2E scenarios)
+├── scripts        # Utility scripts (e.g., custom report generation)
+├── report         # Generated Allure reports (auto-created)
+├── wdio.conf.js   # WebdriverIO configuration file
+└── package.json   # Project dependencies and scripts
 ```
 
 ## 🚀 Prerequisites
@@ -50,13 +49,14 @@ npm run run-all
 ### 2. Run Tests Only
 If you only want to execute the tests without generating a report immediately:
 
- 
+```bash
 npm run wdio
 ```
 
 ### 3. Generate Report Manually
 If you have run tests previously and want to generate a report from the existing `allure-results`:
 
+```bash
 npm run report
 ```
 
@@ -82,7 +82,7 @@ The suite currently covers the following critical business flow:
 
 The framework uses **Allure Reporter** for detailed execution logs.
 
-- **Steps**: Every logical action (e.g., "Click Login", "Enter Details") is logged as a distinct step in the report.
+- **Automated Steps**: Every logical action (e.g., "Login", "Add Items", "Verify Success") is internally managed within the Page Objects. This ensures consistent reporting across all test files.
 - **Single File**: The final report is bundled into a standalone HTML file for easy sharing.
 - **History**: Reports are saved in timestamped folders inside the `report/` directory so you don't lose history.
 
@@ -96,9 +96,12 @@ The framework uses **Allure Reporter** for detailed execution logs.
 ## 📝 Customization
 
 ### Locators
-All selectors are stored in `test/locators`. If the UI changes, update the selectors in the corresponding locator file (e.g., `login.locators.js`) without touching the test logic or page objects.
+All selectors are stored in the root-level `locators/` folder. If the UI changes, update the selectors in the corresponding locator file (e.g., `login.locators.js`) without touching the test logic or page objects.
 
 ### Page Objects
-Logic for interacting with pages is in `test/pageobjects`. Methods like `login()`, `addRandomItemsToCart()` are defined here.
+Logic for interacting with pages is in the root-level `pageobjects/` folder. Methods like `login()`, `addRandomItemsToCart()` are defined here and include built-in Allure steps for clear reporting.
+
+### Tests
+Test specifications are located in the `test/` folder. These files are kept minimal as the logic and steps are abstracted into Page Objects.
 
 
