@@ -67,50 +67,56 @@ The suite covers 7 comprehensive E2E files with the following scenarios:
 
 1.  **Main Checkout Flow** (`checkout-flow.e2e.js`): 
     - Full end-to-end journey from login to "Thank you for your order" message.
+    - *Tags:* `@smoke`, `@regression`
 2.  **Cart Persistence** (`cart-persistence.e2e.js`): 
     - Ensures items and badge count persist after logging out and logging back in.
+    - *Tags:* `@regression`
 3.  **Inventory UI Integrity** (`inventory-ui.e2e.js`): 
     - Validates that product names, images, prices, and "Add to Cart" buttons are visible for all items.
+    - *Tags:* `@smoke`, `@regression`
 4.  **Product Sorting** (`inventory-sorting.e2e.js`): 
     - Verifies sorting functionality for Name (A-Z, Z-A) and Price (Low to High, High to Low).
+    - *Tags:* `@regression`
 5.  **Add/Remove Product Combinations** (`cart-add-remove.e2e.js`): 
     - Tests complex patterns of adding multiple items, removing specific ones, and adding again.
-6.  **Logout From Everywhere** (`logout.e2e.js`): 
+    - *Tags:* `@regression`
+6.  **Logout Consistency** (`logout.e2e.js`): 
     - Tests logout consistency from Inventory, Shopping Cart, and Checkout pages.
+    - *Tags:* `@regression`
 7.  **Shopping Cart Total Validation** (`cart-total-validation.e2e.js`): 
     - Dynamically calculates `Item Total + Tax` to verify the `Total` displayed matches expected math.
+    - *Tags:* `@regression`
 
 ## 🏷️ Test Tagging
 
 Tests are categorized using Mocha tags in the `describe` blocks.
 
-- **`@smoke`**: Reserved for high-priority tests that verify the core functionality (Main Checkout and UI Check).
-- **`@regression`**: Applied to all tests in the repository to ensure a full system check.
+- **`@smoke`**: Reserved for high-priority tests that verify the core functionality (2 tests).
+- **`@regression`**: Applied to all tests in the repository for full coverage (7 files).
+
+## ⚙️ Configuration
+
+### Parallel vs Sequential Execution
+You can control how many browsers open at once in `wdio.conf.js`:
+
+- **Sequential (One by one):** Set `maxInstances: 1`. (Current default)
+- **Parallel (Multiple browsers):** Set `maxInstances: 10` (or higher) for faster execution.
 
 ## 📊 Reporting
 
-The framework uses **Allure Reporter** with a custom script to bundle findings into a single, shareable HTML file.
+The framework uses **Allure Reporter** with a custom script to bundle findings into a single, standalone HTML file.
 
-- **Automated Steps**: Every logical action is logged.
-- **Visuals**: Screenshots can be attached on failure (configurable in `wdio.conf.js`).
-- **Clean Runs**: The `npm run run-all` command automatically clears `allure-results` before starting, ensuring your report only shows the latest run.
+- **Automated Steps**: Every logical action is logged within Page Objects.
+- **Visuals**: Screenshots are automatically captured on failure.
+- **Clean Runs**: `npm run run-all` automatically clears previous results to avoid report duplication.
 
-## 🛠️ Tech Stack & Dependencies
+## 🛠️ Tech Stack
 
 *   **[WebdriverIO](https://webdriver.io/)**: Next-gen browser automation.
-*   **[Mocha](https://mochajs.org/)**: JavaScript test framework using `describe` / `it` blocks.
-*   **[Allure Report](https://allurereport.org/)**: Advanced reporting tool.
-*   **[npm-run-all](https://www.npmjs.com/package/npm-run-all)**: Sequentially executes clean, test, and report scripts.
+*   **[Mocha](https://mochajs.org/)**: JavaScript test framework.
+*   **[Allure Report](https://allurereport.org/)**: Advanced testing reports.
 
-## 📝 Customization
-
-### Locators
-All selectors are stored in the root-level `locators/` folder. If the UI changes, update the selectors in the corresponding locator file (e.g., `login.locators.js`) without touching the test logic or page objects.
-
-### Page Objects
-Logic for interacting with pages is in the root-level `pageobjects/` folder. Methods like `login()`, `addRandomItemsToCart()` are defined here and include built-in Allure steps for clear reporting.
-
-### Tests
-Test specifications are located in the `test/` folder. These files are kept minimal as the logic and steps are abstracted into Page Objects.
+---
+*Created by Antigravity AI Assistant.*
 
 
