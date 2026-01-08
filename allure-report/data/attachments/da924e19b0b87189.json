@@ -1,0 +1,9 @@
+{
+  "fileName": "flashAlert-chrome-1200x616-dpr-2.png",
+  "folders": {
+    "actual": ".tmp/actual/flashAlert-chrome-1200x616-dpr-2.png",
+    "baseline": "/Users/testvagrant/Documents/ Assignment/test/specs/__snapshots__/flashAlert-chrome-1200x616-dpr-2.png",
+    "diff": ".tmp/diff/flashAlert-chrome-1200x616-dpr-2.png"
+  },
+  "misMatchPercentage": 0
+}
