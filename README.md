@@ -37,61 +37,70 @@ npm install
 
 ## 🏃‍♂️ Running the Tests
 
-We have configured convenient npm scripts to run tests and generate reports effortlessly.
+We have configured convenient npm scripts to run tests by tags and generate reports effortlessly.
 
-### 1. Run Tests & Generate Report (Recommended)
-This command runs the specific test suite and automatically generates and opens a single-file html report.
-
+### 1. Run Full Suite (Clean -> Run All -> Report)
+This is the recommended command for a full regression run. It clears old results, runs all tests, and opens the Allure report.
 ```bash
 npm run run-all
 ```
 
-### 2. Run Tests Only
-If you only want to execute the tests without generating a report immediately:
+### 2. Run by Tags
+You can execute specific sets of tests using tags.
+- **Smoke Tests** (2 critical scenarios):
+  ```bash
+  npm run test:smoke
+  ```
+- **Regression Tests** (All scenarios):
+  ```bash
+  npm run test:regression
+  ```
 
-```bash
-npm run wdio
-```
-
-### 3. Generate Report Manually
-If you have run tests previously and want to generate a report from the existing `allure-results`:
-
-```bash
-npm run report
-```
-
-*Note: The report will be generated in the `report/` directory with a timestamp (e.g., `Report_2024-01-08_12-00-00.html`) and opened automatically.*
+### 3. Utility Scripts
+- **Run all tests (wdio only):** `npm run wdio`
+- **Clean results:** `npm run clean` (Clear old `allure-results` to prevent duplicate reports)
+- **Generate Report:** `npm run report` (Generate report from current `allure-results`)
 
 ## 🧪 Test Scenarios
 
-The suite currently covers the following critical business flow:
+The suite covers 7 comprehensive E2E files with the following scenarios:
 
-1.  **Login**: Authenticate with valid `standard_user` credentials.
-2.  **Add to Cart**: 
-    - Verify inventory items.
-    - Shuffle items and select 3 random products.
-    - Add selected products to the cart.
-3.  **Cart & Checkout**:
-    - Navigate to the shopping cart.
-    - Proceed to checkout.
-    - Enter shipping information.
-    - Complete the order.
-4.  **Verification**: Assert that the "Thank you for your order!" message is displayed.
+1.  **Main Checkout Flow** (`test.e2e.js`): 
+    - Full end-to-end journey from login to "Thank you for your order" message.
+2.  **Cart Persistence** (`cartPersistence.e2e.js`): 
+    - Ensures items and badge count persist after logging out and logging back in.
+3.  **Inventory UI Integrity** (`inventoryUI.e2e.js`): 
+    - Validates that product names, images, prices, and "Add to Cart" buttons are visible for all items.
+4.  **Product Sorting** (`sorting.e2e.js`): 
+    - Verifies sorting functionality for Name (A-Z, Z-A) and Price (Low to High, High to Low).
+5.  **Add/Remove Product Combinations** (`addRemovePatterns.e2e.js`): 
+    - Tests complex patterns of adding multiple items, removing specific ones, and adding again.
+6.  **Logout From Everywhere** (`logoutEverywhere.e2e.js`): 
+    - Tests logout consistency from Inventory, Shopping Cart, and Checkout pages.
+7.  **Shopping Cart Total Validation** (`cartTotalValidation.e2e.js`): 
+    - Dynamically calculates `Item Total + Tax` to verify the `Total` displayed matches expected math.
+
+## 🏷️ Test Tagging
+
+Tests are categorized using Mocha tags in the `describe` blocks.
+
+- **`@smoke`**: Reserved for high-priority tests that verify the core functionality (Main Checkout and UI Check).
+- **`@regression`**: Applied to all tests in the repository to ensure a full system check.
 
 ## 📊 Reporting
 
-The framework uses **Allure Reporter** for detailed execution logs.
+The framework uses **Allure Reporter** with a custom script to bundle findings into a single, shareable HTML file.
 
-- **Automated Steps**: Every logical action (e.g., "Login", "Add Items", "Verify Success") is internally managed within the Page Objects. This ensures consistent reporting across all test files.
-- **Single File**: The final report is bundled into a standalone HTML file for easy sharing.
-- **History**: Reports are saved in timestamped folders inside the `report/` directory so you don't lose history.
+- **Automated Steps**: Every logical action is logged.
+- **Visuals**: Screenshots can be attached on failure (configurable in `wdio.conf.js`).
+- **Clean Runs**: The `npm run run-all` command automatically clears `allure-results` before starting, ensuring your report only shows the latest run.
 
 ## 🛠️ Tech Stack & Dependencies
 
-*   **[WebdriverIO](https://webdriver.io/)**: Next-gen browser and mobile automation test framework for Node.js.
-*   **[Mocha](https://mochajs.org/)**: Feature-rich JavaScript test framework.
-*   **[Allure Report](https://allurereport.org/)**: Flexible lightweight multi-language test report tool.
-*   **[npm-run-all](https://www.npmjs.com/package/npm-run-all)**: A CLI tool to run multiple npm-scripts in parallel or sequentially.
+*   **[WebdriverIO](https://webdriver.io/)**: Next-gen browser automation.
+*   **[Mocha](https://mochajs.org/)**: JavaScript test framework using `describe` / `it` blocks.
+*   **[Allure Report](https://allurereport.org/)**: Advanced reporting tool.
+*   **[npm-run-all](https://www.npmjs.com/package/npm-run-all)**: Sequentially executes clean, test, and report scripts.
 
 ## 📝 Customization
 

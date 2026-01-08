@@ -14,8 +14,11 @@
   },
   "scripts": {
     "wdio": "wdio run ./wdio.conf.js",
+    "test:smoke": "wdio run ./wdio.conf.js --mochaOpts.grep @smoke",
+    "test:regression": "wdio run ./wdio.conf.js --mochaOpts.grep @regression",
+    "clean": "rm -rf allure-results",
     "report": "node scripts/generate-report.js",
     "report-single-file": "allure generate -c --single-file allure-results --report-name Allure Report",
-    "run-all": "npm-run-all --continue-on-error wdio report"
+    "run-all": "npm-run-all --continue-on-error clean wdio report"
   }
 }

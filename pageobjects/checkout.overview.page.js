@@ -13,6 +13,21 @@ class CheckoutOverviewPage extends Page {
         allureReporter.addStep('Click on Finish button');
         await this.btnFinish.click();
     }
+
+    async getSubtotal() {
+        const text = await $(CheckoutOverviewLocators.subtotalLabel).getText();
+        return parseFloat(text.split('$')[1]);
+    }
+
+    async getTax() {
+        const text = await $(CheckoutOverviewLocators.taxLabel).getText();
+        return parseFloat(text.split('$')[1]);
+    }
+
+    async getTotal() {
+        const text = await $(CheckoutOverviewLocators.totalLabel).getText();
+        return parseFloat(text.split('$')[1]);
+    }
 }
 
 export default new CheckoutOverviewPage();
