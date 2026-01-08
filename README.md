@@ -65,19 +65,19 @@ You can execute specific sets of tests using tags.
 
 The suite covers 7 comprehensive E2E files with the following scenarios:
 
-1.  **Main Checkout Flow** (`test.e2e.js`): 
+1.  **Main Checkout Flow** (`checkout-flow.e2e.js`): 
     - Full end-to-end journey from login to "Thank you for your order" message.
-2.  **Cart Persistence** (`cartPersistence.e2e.js`): 
+2.  **Cart Persistence** (`cart-persistence.e2e.js`): 
     - Ensures items and badge count persist after logging out and logging back in.
-3.  **Inventory UI Integrity** (`inventoryUI.e2e.js`): 
+3.  **Inventory UI Integrity** (`inventory-ui.e2e.js`): 
     - Validates that product names, images, prices, and "Add to Cart" buttons are visible for all items.
-4.  **Product Sorting** (`sorting.e2e.js`): 
+4.  **Product Sorting** (`inventory-sorting.e2e.js`): 
     - Verifies sorting functionality for Name (A-Z, Z-A) and Price (Low to High, High to Low).
-5.  **Add/Remove Product Combinations** (`addRemovePatterns.e2e.js`): 
+5.  **Add/Remove Product Combinations** (`cart-add-remove.e2e.js`): 
     - Tests complex patterns of adding multiple items, removing specific ones, and adding again.
-6.  **Logout From Everywhere** (`logoutEverywhere.e2e.js`): 
+6.  **Logout From Everywhere** (`logout.e2e.js`): 
     - Tests logout consistency from Inventory, Shopping Cart, and Checkout pages.
-7.  **Shopping Cart Total Validation** (`cartTotalValidation.e2e.js`): 
+7.  **Shopping Cart Total Validation** (`cart-total-validation.e2e.js`): 
     - Dynamically calculates `Item Total + Tax` to verify the `Total` displayed matches expected math.
 
 ## 🏷️ Test Tagging

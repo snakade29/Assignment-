@@ -7,7 +7,7 @@ import CheckoutInfoPage from '../pageobjects/checkout.info.page.js'
 import CheckoutOverviewPage from '../pageobjects/checkout.overview.page.js'
 import CheckoutCompletePage from '../pageobjects/checkout.complete.page.js'
 
-describe('My Login application @smoke @regression', () => {
+describe('Checkout flow @smoke @regression', () => {
     it('should login with valid credentials', async () => {
         await LoginPage.open()
         await LoginPage.login('standard_user', 'secret_sauce')
